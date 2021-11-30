@@ -1,0 +1,33 @@
+hydra:
+  run:
+    dir: outputs/${data.name}/${model.name}-${loss.name}-${optim.name}/${now:%Y%m%d-%H:%M:%S-%f}
+
+defaults:
+  - data: cifar10
+  - model: resnet50
+  - loss: ce
+  - optim: sgd
+  - scheduler: multi_step
+  - wandb: my
+
+  - override hydra/job_logging: custom
+
+task: cv
+device: cuda:0
+seed: 1
+log_period: 10
+train:
+  clip_grad_norm: True
+  max_epoch: 200
+  resume: False
+  keep_checkpoint_num: 1
+  keep_checkpoint_interval: 0
+calibrate:
+  num_bins: 15
+  visualize: False
+test:
+  checkpoint: ""
+  save_logits: False
+  post_temperature: False
+wandb:
+  enable: False

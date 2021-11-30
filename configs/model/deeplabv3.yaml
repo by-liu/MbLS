@@ -1,0 +1,12 @@
+name: deeplabv3
+
+num_classes: 21
+encoder_name: resnet50
+encoder_weights: imagenet
+
+object:
+  _target_: segmentation_models_pytorch.DeepLabV3
+  encoder_name: ${model.encoder_name}
+  encoder_weights: ${model.encoder_weights}
+  in_channels: 3
+  classes: ${model.num_classes}

@@ -1,0 +1,11 @@
+name: resnet101
+num_classes: 10
+pretrained: True
+has_dropout: True
+
+object:
+  _target_: calibrate.net.resnet.build_resnet
+  encoder_name: ${model.name}
+  num_classes: ${model.num_classes}
+  pretrained: ${model.pretrained}
+  has_dropout: ${model.has_dropout}

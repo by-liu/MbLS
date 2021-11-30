@@ -1,0 +1,10 @@
+name: focal_adaptive
+gamma: 3.0
+ignore_index: -100
+
+object:
+  _target_: calibrate.losses.FocalLossAdaptive
+  gamma: ${loss.gamma}
+  ignore_index: ${loss.ignore_index}
+  size_average: True
+  device: ${device}

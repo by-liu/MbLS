@@ -1,0 +1,22 @@
+name: cub
+
+data_root: DATA_PATH
+batch_size: 32
+scale_size: 256
+crop_size: 224
+
+object:
+  trainval:
+    _target_: calibrate.data.cub.get_train_val_loader
+    data_root: ${data.data_root}
+    batch_size: ${data.batch_size}
+    scale_size: ${data.scale_size}
+    crop_size: ${data.crop_size}
+    num_workers: 8
+  test:
+    _target_: calibrate.data.cub.get_test_loader
+    data_root: ${data.data_root}
+    batch_size: ${data.batch_size}
+    scale_size: ${data.scale_size}
+    crop_size: ${data.crop_size}
+    num_workers: 8

@@ -1,0 +1,6 @@
+name: global_pooling
+num_classes: 20
+
+object:
+  _target_: calibrate.net.ng_model.GlobalPoolingCNN
+  num_classes: ${model.num_classes}

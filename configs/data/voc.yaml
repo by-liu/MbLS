@@ -1,0 +1,16 @@
+name: voc
+
+data_root: DATA_PATH
+batch_size: 8
+
+object:
+  trainval:
+    _target_: calibrate.data.voc.get_train_val_loader
+    data_root: ${data.data_root}
+    batch_size: ${data.batch_size}
+    num_workers: 8
+  test:
+    _target_: calibrate.data.voc.get_test_loader
+    data_root: ${data.data_root}
+    batch_size: ${data.batch_size}
+    num_workers: 8

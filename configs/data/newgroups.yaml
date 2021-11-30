@@ -1,0 +1,12 @@
+name: ng
+
+data_root: DATA_PATH
+batch_size: 128
+
+object:
+  all:
+    _target_: calibrate.data.newsgroup.ng_loader
+    data_dir: ${data.data_root}
+    test_split: 0.2
+    shuffle: True
+    random_seed: ${seed}

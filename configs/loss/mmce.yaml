@@ -1,0 +1,7 @@
+name: mmce
+lamda: 1.0
+
+object:
+  _target_: calibrate.losses.MMCE
+  device: ${device}
+  lamda: ${loss.lamda}

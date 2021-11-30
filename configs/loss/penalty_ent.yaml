@@ -1,0 +1,8 @@
+name: penalty_ent
+alpha: 0.1
+ignore_index: -100
+
+object:
+  _target_: calibrate.losses.PenaltyEntropy
+  alpha: ${loss.alpha}
+  ignore_index: ${loss.ignore_index}
