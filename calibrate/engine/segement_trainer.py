@@ -14,7 +14,7 @@ from terminaltables.ascii_table import AsciiTable
 
 from calibrate.engine.trainer import Trainer
 from calibrate.net import ModelWithTemperature
-from calibrate.losses import LabelSmoothConstrainedLoss, LogitMarginL1
+from calibrate.losses import LogitMarginL1
 from calibrate.evaluation import (
     AverageMeter, LossMeter, SegmentEvaluator,
     SegmentCalibrateEvaluator, SegmentLogitsEvaluator
@@ -85,9 +85,7 @@ class SegmentTrainer(Trainer):
         log_dict["samples"] = self.evaluator.num_samples()
         log_dict["lr"] = get_lr(self.optimizer)
         log_dict.update(self.loss_meter.get_avgs())
-        if isinstance(self.loss_func, LabelSmoothConstrainedLoss):
-            log_dict["t_logb"] = self.loss_func.t_logb
-        elif isinstance(self.loss_func, LogitMarginL1):
+        if isinstance(self.loss_func, LogitMarginL1):
             log_dict["alpha"] = self.loss_func.alpha
         metric = self.evaluator.mean_score()
         log_dict.update(metric)

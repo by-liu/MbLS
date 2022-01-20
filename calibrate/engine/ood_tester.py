@@ -10,7 +10,6 @@ import wandb
 from terminaltables.ascii_table import AsciiTable
 from typing import Optional
 from calibrate.net import ModelWithTemperature
-from calibrate.losses import LabelSmoothConstrainedLoss
 from calibrate.evaluation import (
     AverageMeter, LossMeter, ClassificationEvaluator, CalibrateEvaluator, OODEvaluator
 )

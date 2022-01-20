@@ -13,7 +13,6 @@ from hydra.utils import instantiate
 
 from calibrate.engine.trainer import Trainer
 from calibrate.net import ModelWithTemperature
-from calibrate.losses import LabelSmoothConstrainedLoss
 from calibrate.utils.torch_helper import to_numpy
 from calibrate.utils import (
     load_train_checkpoint, load_checkpoint, save_checkpoint, round_dict
@@ -158,8 +157,6 @@ class NLPTrainer(Trainer):
             val_loss, val_score = self.eval_epoch(self.val_datas, self.val_labels, epoch, phase="Val")
             # run lr scheduler
             self.scheduler.step()
-            if isinstance(self.loss_func, LabelSmoothConstrainedLoss):
-                self.loss_func.schedule_t()
             if self.best_score is None or val_score > self.best_score:
                 self.best_score, self.best_epoch = val_score, epoch
                 best_checkpoint = True
