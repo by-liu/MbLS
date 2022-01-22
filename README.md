@@ -1,4 +1,12 @@
-# MbLS
+# MbLS : The Devil is in the Margin: Margin-based Label Smoothing for Network Calibration
+
+[Bingyuan Liu](https://by-liu.github.io/), [Ismail Ben Ayed](https://profs.etsmtl.ca/ibenayed/), Adrian Galdran, [Jose Dolz](https://josedolz.github.io/)
+
+[[`arXiv`](https://arxiv.org/abs/2111.15430)] [[`BibTeX`](#CitingMbLS)]
+
+<div align="center">
+  <img src="https://by-liu.github.io/publication/margin-based-label-smoothing/featured_hu1bcfdecf7483f74849c0f7f247a58b3e_176048_720x0_resize_q75_lanczos.jpg" width="100%" height="100%"/>
+</div><br/>
 
 
 ## Requirments:
@@ -42,7 +50,7 @@ train_net is powered by Hydra.
 Compose your configuration from those groups (group=option)
 
 data: cifar10, cub, newgroups, tiny_imagenet, voc
-loss: ce, focal, focal_adaptive, logit_margin_l1, ls, ls_cst, mmce, penalty_ent
+loss: ce, focal, focal_adaptive, logit_margin, ls, mmce, penalty_ent
 model: deeplabv3, global_pooling, resnet101, resnet101_cifar, resnet101_tiny, resnet110, resnet110_cifar, resnet34, resnet34_cifar, resnet34_tiny, resnet50, resnet50_cifar, resnet50_tiny
 optim: adam, sgd
 scheduler: multi_step, plateau, step
@@ -152,7 +160,7 @@ python tools/train_net.py \
     log_period=100 \
     data=tiny_imagenet \
     model=resnet50_tiny model.num_classes=200 \
-    loss=logit_margin_l1 loss.margin=10.0 loss.alpha=0.1 \
+    loss=logit_margin loss.margin=10.0 loss.alpha=0.1 \
     optim=sgd optim.lr=0.1 optim.momentum=0.9 \
     scheduler=multi_step scheduler.milestones="[40, 60]" \
     train.max_epoch=100
@@ -192,3 +200,16 @@ Besides the implementation of our paper, this library could support follow-up wo
 * Experiments tracking with [wandb](https://wandb.ai/)
 
 **More instructions will come soon. Please stay tuned! Thank you.**
+
+
+## <a name="CitingMbLS"></a>Citing MbLS
+
+
+```BibTeX
+@article{liu2021devil,
+  title={The Devil is in the Margin: Margin-based Label Smoothing for Network Calibration}, 
+  author={Bingyuan Liu and Ismail Ben Ayed and Adrian Galdran and Jose Dolz},
+  journal={arXiv preprint arXiv:2111.15430}
+  year={2021}
+}
+```

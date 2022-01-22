@@ -1,4 +1,4 @@
-name: logit_margin_l1
+name: logit_margin
 margin: 10
 alpha: 1.0
 ignore_index: -100

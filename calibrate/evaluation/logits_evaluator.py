@@ -67,19 +67,6 @@ class LogitsEvaluator(DatasetEvaluator):
         metric = {}
         metric["mean_diffs"] = np.mean(mean_diffs)
         metric["max_diffs"] = np.mean(max_diffs)
-        n_top10 = int(self.count * 0.1)
-        metric["max_diffs_top10"] = np.mean(
-            max_diffs[max_diffs.argsort()[-n_top10:]]
-        )
-        n_top5 = int(self.count * 0.05)
-        metric["max_diffs_top5"] = np.mean(
-            max_diffs[max_diffs.argsort()[-n_top5:]]
-        )
-        n_top1 = int(self.count * 0.01)
-        metric["max_diffs_top1"] = np.mean(
-            max_diffs[max_diffs.argsort()[-n_top1:]]
-        )
-        # metric["max_max_diffs"] = np.max(max_diffs)
         metric["margin"] = np.mean(margins)
 
         return metric

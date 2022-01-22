@@ -11,7 +11,7 @@ import wandb
 from terminaltables.ascii_table import AsciiTable
 
 from calibrate.net import ModelWithTemperature
-from calibrate.losses import LabelSmoothConstrainedLoss, LogitMarginL1
+from calibrate.losses import LogitMarginL1
 from calibrate.evaluation import (
     AverageMeter, LossMeter, ClassificationEvaluator,
     CalibrateEvaluator, LogitsEvaluator, ProbsEvaluator
@@ -139,9 +139,7 @@ class Trainer:
         log_dict["samples"] = self.evaluator.num_samples()
         log_dict["lr"] = get_lr(self.optimizer)
         log_dict.update(self.loss_meter.get_avgs())
-        if isinstance(self.loss_func, LabelSmoothConstrainedLoss):
-            log_dict["t_logb"] = self.loss_func.t_logb
-        elif isinstance(self.loss_func, LogitMarginL1):
+        if isinstance(self.loss_func, LogitMarginL1):
             log_dict["alpha"] = self.loss_func.alpha
         metric, table_data = self.evaluator.mean_score(print=False)
         log_dict.update(metric)
@@ -289,9 +287,7 @@ class Trainer:
             val_loss, val_score = self.eval_epoch(self.val_loader, epoch, phase="Val")
             # run lr scheduler
             self.scheduler.step()
-            if isinstance(self.loss_func, LabelSmoothConstrainedLoss):
-                self.loss_func.schedule_t(epoch)
-            elif isinstance(self.loss_func, LogitMarginL1):
+            if isinstance(self.loss_func, LogitMarginL1):
                 self.loss_func.schedule_alpha(epoch)
             if self.best_score is None or val_score > self.best_score:
                 self.best_score, self.best_epoch = val_score, epoch
