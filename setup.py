@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="calibrate",
-    version="0.1",
+    version="0.2",
     author="",
     description="For awesome calibration research",
     packages=find_packages(),

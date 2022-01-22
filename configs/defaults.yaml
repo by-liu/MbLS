@@ -22,6 +22,9 @@ train:
   resume: False
   keep_checkpoint_num: 1
   keep_checkpoint_interval: 0
+  mixup:
+    enable: False
+    alpha: 0.4
 calibrate:
   num_bins: 15
   visualize: False

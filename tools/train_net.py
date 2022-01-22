@@ -5,7 +5,7 @@ import hydra
 from omegaconf import DictConfig, OmegaConf
 from omegaconf.omegaconf import open_dict
 
-from calibrate.engine import Trainer, SegmentTrainer, NLPTrainer
+from calibrate.engine import Trainer, SegmentTrainer, NLPTrainer, TrainerMixup
 from calibrate.utils import set_random_seed
 
 logger = logging.getLogger(__name__)
@@ -30,7 +30,10 @@ def main(cfg: DictConfig):
         deterministic=True if cfg.seed is not None else False
     )
 
-    trainer = TRAINERS[cfg.task](cfg)
+    if cfg.task == "cv" and cfg.train.mixup.enable:
+        trainer = TrainerMixup(cfg)
+    else:
+        trainer = TRAINERS[cfg.task](cfg)
     trainer.run()
 
     logger.info("Job complete !\n")
