@@ -31,6 +31,10 @@ calibrate:
 test:
   checkpoint: ""
   save_logits: False
-  post_temperature: False
+post_temperature:
+  enable: False
+  learn: True
+  grid_search_interval: 0.1
+  cross_validate: nll
 wandb:
   enable: False

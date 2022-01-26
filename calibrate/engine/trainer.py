@@ -324,7 +324,10 @@ class Trainer:
             )
 
     def post_temperature(self):
-        model_with_temp = ModelWithTemperature(self.model, device=self.device)
+        model_with_temp = ModelWithTemperature(
+            self.model,
+            device=self.device
+        )
         model_with_temp.set_temperature(self.val_loader)
         temp = model_with_temp.get_temperature()
         wandb.log({
@@ -345,8 +348,9 @@ class Trainer:
             osp.join(self.work_dir, "best.pth"), self.model, self.device
         )
         self.eval_epoch(self.test_loader, epoch, phase="Test")
-        temp = self.post_temperature()
-        self.eval_epoch(self.test_loader, epoch, phase="TestPT", temp=temp, post_temp=True)
+        if self.cfg.post_temperature.enable:
+            temp = self.post_temperature()
+            self.eval_epoch(self.test_loader, epoch, phase="TestPT", temp=temp, post_temp=True)
 
     def run(self):
         self.train()

@@ -147,7 +147,13 @@ class Tester:
 
     def post_temperature(self):
         _, self.val_loader = instantiate(self.cfg.data.object.trainval)
-        model_with_temp = ModelWithTemperature(self.model, device=self.device)
+        model_with_temp = ModelWithTemperature(
+            self.model,
+            learn=self.cfg.post_temperature.learn,
+            grid_search_interval=self.cfg.post_temperature.grid_search_interval,
+            cross_validate=self.cfg.post_temperature.cross_validate,
+            device=self.device
+        )
         model_with_temp.set_temperature(self.val_loader)
         temp = model_with_temp.get_temperature()
         if self.cfg.wandb.enable:
@@ -161,7 +167,7 @@ class Tester:
             "Everything is perfect so far. Let's start testing. Good luck!"
         )
         self.eval_epoch(self.test_loader, phase="Test")
-        if self.cfg.test.post_temperature:
+        if self.cfg.post_temperature.enable:
             logger.info("Test with post-temperature scaling!")
             temp = self.post_temperature()
             self.eval_epoch(self.test_loader, phase="TestPT", temp=temp, post_temp=True)
