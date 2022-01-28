@@ -22,10 +22,10 @@ class ModelWithTemperature(nn.Module):
     """
     def __init__(
         self, model,
-        learn: bool = True,
+        learn: bool = False,
         device: str = "cuda:0",
         grid_search_interval: float = 0.1,
-        cross_validate: str = "nll",
+        cross_validate: str = "ece",
         log: bool = True
     ):
         assert cross_validate in ("ece", "nll"), \
@@ -160,7 +160,7 @@ class ModelWithTemperature(nn.Module):
                 1, dtype=torch.float32,
                 requires_grad=True, device=self.device
             )
-            optimizer = optim.LBFGS([self.temperature], lr=0.01, max_iter=100)
+            optimizer = optim.LBFGS([self.temperature], lr=0.1, max_iter=100)
 
             def eval():
                 optimizer.zero_grad()
@@ -175,19 +175,18 @@ class ModelWithTemperature(nn.Module):
             ece_val = 10 ** 7
             T_opt_nll = 1.0
             T_opt_ece = 1.0
-            T = self.grid_search_interval
-            for i in range(100):
-                self.temperature = T
+
+            for t in np.arange(0.1, 4, self.grid_search_interval):
+                self.temperature = t
                 after_temperature_nll = nll_criterion(self.temperature_scale(logits), labels).item()
                 after_temperature_ece = ece_criterion(self.temperature_scale(logits), labels).item()
                 if nll_val > after_temperature_nll:
-                    T_opt_nll = T
+                    T_opt_nll = t
                     nll_val = after_temperature_nll
 
                 if ece_val > after_temperature_ece:
-                    T_opt_ece = T
+                    T_opt_ece = t
                     ece_val = after_temperature_ece
-                T += self.grid_search_interval
 
             if self.cross_validate == 'ece':
                 self.temperature = T_opt_ece

@@ -326,6 +326,9 @@ class Trainer:
     def post_temperature(self):
         model_with_temp = ModelWithTemperature(
             self.model,
+            learn=self.cfg.post_temperature.learn,
+            grid_search_interval=self.cfg.post_temperature.grid_search_interval,
+            cross_validate=self.cfg.post_temperature.cross_validate,
             device=self.device
         )
         model_with_temp.set_temperature(self.val_loader)
@@ -349,6 +352,7 @@ class Trainer:
         )
         self.eval_epoch(self.test_loader, epoch, phase="Test")
         if self.cfg.post_temperature.enable:
+            logger.info("Test with post-temperature scaling!")
             temp = self.post_temperature()
             self.eval_epoch(self.test_loader, epoch, phase="TestPT", temp=temp, post_temp=True)
 
