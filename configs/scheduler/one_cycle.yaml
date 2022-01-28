@@ -1,0 +1,11 @@
+name: one_cycle
+max_lr: ${optim.lr}
+epochs: ${train.max_epoch}
+pct_start: 0.05
+
+object:
+  _target_: torch.optim.lr_scheduler.OneCycleLR
+  max_lr: ${scheduler.max_lr}
+  epochs: ${scheduler.epochs}
+  pct_start: ${scheduler.pct_start}
+  verbose: False

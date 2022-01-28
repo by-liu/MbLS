@@ -54,9 +54,15 @@ class Trainer:
         self.optimizer = instantiate(
             self.cfg.optim.object, self.model.parameters()
         )
-        self.scheduler = instantiate(
-            self.cfg.scheduler.object, self.optimizer
-        )
+        if self.cfg.scheduler.name == "one_cycle":
+            self.scheduler = instantiate(
+                self.cfg.scheduler.object, self.optimizer,
+                steps_per_epoch=len(self.train_loader)
+            )
+        else:
+            self.scheduler = instantiate(
+                self.cfg.scheduler.object, self.optimizer
+            )
         logger.info("Solver initialized")
 
     def init_wandb_or_not(self) -> None:
@@ -122,6 +128,8 @@ class Trainer:
         log_dict.update(self.loss_meter.get_vals())
         log_dict.update(self.evaluator.curr_score())
         log_dict.update(self.logits_evaluator.curr_score())
+        if self.cfg.scheduler.name == "one_cycle":
+            log_dict["lr"] = get_lr(self.optimizer)
         # log_dict.update(self.probs_evaluator.curr_score())
         logger.info("{} Iter[{}/{}][{}]\t{}".format(
             phase, iter + 1, max_iter, epoch + 1,
@@ -234,6 +242,8 @@ class Trainer:
             self.batch_time_meter.update(time.time() - end)
             if (i + 1) % self.cfg.log_period == 0:
                 self.log_iter_info(i, max_iter, epoch)
+            if self.cfg.scheduler.name == "one_cycle":
+                self.scheduler.step()
             end = time.time()
         self.log_epoch_info(epoch)
 
@@ -286,7 +296,8 @@ class Trainer:
             self.train_epoch(epoch)
             val_loss, val_score = self.eval_epoch(self.val_loader, epoch, phase="Val")
             # run lr scheduler
-            self.scheduler.step()
+            if self.cfg.scheduler.name != "one_cycle":
+                self.scheduler.step()
             if isinstance(self.loss_func, LogitMarginL1):
                 self.loss_func.schedule_alpha(epoch)
             if self.best_score is None or val_score > self.best_score:

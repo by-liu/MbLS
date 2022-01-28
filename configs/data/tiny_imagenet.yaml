@@ -1,7 +1,8 @@
 name: tiny_imagenet
 
-data_root: DATA_PATH
+data_root: /home/bliu/work/Data/tiny-imagenet-200
 batch_size: 64
+for_vit: False
 
 object:
   trainval:
@@ -13,9 +14,11 @@ object:
     shuffle: True
     num_workers: 4
     pin_memory: True
+    for_vit: ${data.for_vit}
   test:
     _target_: calibrate.data.tiny_imagenet.get_test_loader
     root: ${data.data_root}
     batch_size: ${data.batch_size}
     num_workers: 4
     pin_memory: True
+    for_vit: ${data.for_vit}

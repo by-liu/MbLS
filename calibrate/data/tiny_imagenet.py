@@ -181,25 +181,45 @@ def get_train_val_loader(root,
                          random_seed=1,
                          shuffle=True,
                          num_workers=4,
-                         pin_memory=False):
+                         pin_memory=False,
+                         for_vit=False):
     np.random.seed(random_seed)
 
-    normalize = transforms.Normalize(
-        mean=[0.485, 0.456, 0.406],
-        std=[0.229, 0.224, 0.225]
-    )
+    if for_vit:
+        normalize = transforms.Normalize(
+            mean=[0.5, 0.5, 0.5],
+            std=[0.5, 0.5, 0.5],
+        )
 
-    val_transform = transforms.Compose([
-        transforms.ToTensor(),
-        normalize
-    ])
+        val_transform = transforms.Compose([
+            transforms.Resize(224),
+            transforms.ToTensor(),
+            normalize
+        ])
 
-    train_transform = transforms.Compose([
-        transforms.RandomCrop(64, padding=4),
-        transforms.RandomHorizontalFlip(),
-        transforms.ToTensor(),
-        normalize
-    ])
+        train_transform = transforms.Compose([
+            transforms.Resize(224),
+            transforms.RandomHorizontalFlip(),
+            transforms.ToTensor(),
+            normalize
+        ])
+    else:
+        normalize = transforms.Normalize(
+            mean=[0.485, 0.456, 0.406],
+            std=[0.229, 0.224, 0.225]
+        )
+
+        val_transform = transforms.Compose([
+            transforms.ToTensor(),
+            normalize
+        ])
+
+        train_transform = transforms.Compose([
+            transforms.RandomCrop(64, padding=4),
+            transforms.RandomHorizontalFlip(),
+            transforms.ToTensor(),
+            normalize
+        ])
 
     train_dataset = TinyImageNet(root,
                                  split="train",
@@ -246,17 +266,30 @@ def get_train_val_loader(root,
 def get_test_loader(root,
                     batch_size,
                     num_workers=4,
-                    pin_memory=False):
+                    pin_memory=False,
+                    for_vit=False):
 
-    normalize = transforms.Normalize(
-        mean=[0.485, 0.456, 0.406],
-        std=[0.229, 0.224, 0.225]
-    )
+    if for_vit:
+        normalize = transforms.Normalize(
+            mean=[0.5, 0.5, 0.5],
+            std=[0.5, 0.5, 0.5],
+        )
 
-    test_transform = transforms.Compose([
-        transforms.ToTensor(),
-        normalize
-    ])
+        test_transform = transforms.Compose([
+            transforms.Resize(224),
+            transforms.ToTensor(),
+            normalize
+        ])
+    else:
+        normalize = transforms.Normalize(
+            mean=[0.485, 0.456, 0.406],
+            std=[0.229, 0.224, 0.225]
+        )
+
+        test_transform = transforms.Compose([
+            transforms.ToTensor(),
+            normalize
+        ])
 
     dataset = TinyImageNet(root, split="val",
                            transform=test_transform,

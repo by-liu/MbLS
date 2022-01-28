@@ -1,0 +1,14 @@
+name: vit
+num_classes: 10
+pretrained: True
+
+object:
+  _target_: calibrate.net.vit_model.CAFIA_Transformer
+  num_classes: ${model.num_classes}
+  image_size: 224
+  patch_size: 16
+  emb_dim: 768
+  mlp_dim: 3072
+  num_heads: 12
+  num_layers: 12
+  pretrained: ${model.pretrained}
