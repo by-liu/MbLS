@@ -35,10 +35,16 @@ class OODTester(Tester):
         self.batch_time_meter = AverageMeter()
         self.num_classes = self.cfg.model.num_classes
         self.evaluator = OODEvaluator(self.num_classes)
+        self.calibrate_evaluator = CalibrateEvaluator(
+            self.num_classes,
+            num_bins=self.cfg.calibrate.num_bins,
+            device=self.device,
+        )
 
     def reset_meter(self):
         self.batch_time_meter.reset()
         self.evaluator.reset()
+        self.calibrate_evaluator.reset()
 
     @torch.no_grad()
     def eval_epoch(
@@ -78,6 +84,7 @@ class OODTester(Tester):
                 to_numpy(predicts), to_numpy(labels),
                 in_dist=False
             )
+            self.calibrate_evaluator.update(outputs, labels)
             # measure elapsed time
             self.batch_time_meter.update(time.time() - end)
             end = time.time()
@@ -88,10 +95,13 @@ class OODTester(Tester):
         log_dict["samples"] = self.evaluator.num_samples()
         metric, table_data = self.evaluator.mean_score(print=False)
         log_dict.update(metric)
+        calibrate_metric, calibrate_table_data = self.calibrate_evaluator.mean_score(print=False)
+        log_dict.update(calibrate_metric)
         logger.info("{} Epoch\t{}".format(
             phase, json.dumps(round_dict(log_dict))
         ))
         logger.info("\n" + AsciiTable(table_data).table)
+        logger.info("\n" + AsciiTable(calibrate_table_data).table)
         if self.cfg.wandb.enable:
             wandb_log_dict = {}
             wandb_log_dict.update(dict(
@@ -101,6 +111,12 @@ class OODTester(Tester):
                 wandb.Table(
                     columns=table_data[0],
                     data=table_data[1:]
+                )
+            )
+            wandb_log_dict["{}/calibrate_score_table".format(phase)] = (
+                wandb.Table(
+                    columns=calibrate_table_data[0],
+                    data=calibrate_table_data[1:]
                 )
             )
             wandb.log(wandb_log_dict)
