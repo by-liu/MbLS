@@ -110,6 +110,9 @@ class OODTester(Tester):
             "Everything is perfect so far. Let's start testing. Good luck!"
         )
         self.eval_epoch(phase="Test")
-        logger.info("Test with post-temperature scaling!")
-        temp = self.post_temperature()
-        self.eval_epoch(phase="TestPT", temp=temp, post_temp=True)
+        if self.cfg.post_temperature.enable:
+            logger.info("Test with post-temperature scaling!")
+            temp = self.post_temperature()
+            self.eval_epoch(phase="TestPT", temp=temp, post_temp=True)
+        # temp = self.post_temperature()
+        # self.eval_epoch(phase="TestPT", temp=temp, post_temp=True)

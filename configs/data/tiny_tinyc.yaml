@@ -1,0 +1,35 @@
+name: tiny_tinyc
+
+data_root: /home/bliu/work/Data/tiny-imagenet-200
+data_root_c: /home/bliu/work/Data/Tiny-ImageNet-C
+batch_size: 64
+for_vit: False
+severity: 5
+
+object:
+  trainval:
+    _target_: calibrate.data.tiny_imagenet.get_train_val_loader
+    root: ${data.data_root}
+    batch_size: ${data.batch_size}
+    val_samples_per_class: 50
+    random_seed: ${seed}
+    shuffle: True
+    num_workers: 4
+    pin_memory: True
+    for_vit: ${data.for_vit}
+  in_dist:
+    _target_: calibrate.data.tiny_imagenet.get_test_loader
+    root: ${data.data_root}
+    batch_size: ${data.batch_size}
+    num_workers: 4
+    pin_memory: True
+  out_dist:
+    _target_: calibrate.data.tiny_imagenet.get_test_c_loader
+    root: ${data.data_root}
+    root_c: ${data.data_root_c}
+    batch_size: ${data.batch_size}
+    corruption: gaussian_noise
+    severity: ${data.severity}
+    num_workers: 4
+    pin_memory: True
+    for_vit: ${data.for_vit}

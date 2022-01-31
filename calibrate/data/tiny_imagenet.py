@@ -110,6 +110,51 @@ class TinyImageNet(Dataset):
         return self.transform(img) if self.transform else img
 
 
+class TinyImageNetC(TinyImageNet):
+    def __init__(
+        self, root, root_c,
+        transform=None,
+        target_transform=None,
+        corruption="gaussian_noise",
+        severity=5,
+    ):
+        super().__init__(
+            root,
+            split="test",
+            transform=transform,
+            target_transform=target_transform,
+            in_memory=False
+        )
+
+        self.root_c = os.path.expanduser(root_c)
+        self.corruption = corruption
+        self.severity = str(severity)
+
+        self.load_images()
+
+    def load_images(self):
+        self.image_dir = os.path.join(
+            self.root_c, self.corruption, self.severity
+        )
+        self.image_paths = []
+        self.labels = []
+        classes = sorted(os.listdir(self.image_dir))
+        for cls in classes:
+            cls_img_dir = os.path.join(self.image_dir, cls)
+            label = self.label_text_to_number[cls]
+            for name in sorted(os.listdir(cls_img_dir)):
+                self.image_paths.append(os.path.join(cls_img_dir, name))
+                self.labels.append(label)
+
+    def __getitem__(self, index):
+        file_path = self.image_paths[index]
+        label = self.labels[index]
+
+        img = self.read_image(file_path)
+
+        return img, label
+
+
 def get_data_loader(root,
                     batch_size,
                     split='train',
@@ -294,6 +339,48 @@ def get_test_loader(root,
     dataset = TinyImageNet(root, split="val",
                            transform=test_transform,
                            in_memory=False)
+
+    data_loader = DataLoader(
+        dataset, batch_size=batch_size,
+        num_workers=num_workers, pin_memory=pin_memory
+    )
+
+    return data_loader
+
+
+def get_test_c_loader(root, root_c, batch_size,
+                      corruption="gaussian_noise",
+                      severity=5,
+                      num_workers=4,
+                      pin_memory=False,
+                      for_vit=False):
+
+    if for_vit:
+        normalize = transforms.Normalize(
+            mean=[0.5, 0.5, 0.5],
+            std=[0.5, 0.5, 0.5],
+        )
+
+        test_transform = transforms.Compose([
+            transforms.Resize(224),
+            transforms.ToTensor(),
+            normalize
+        ])
+    else:
+        normalize = transforms.Normalize(
+            mean=[0.485, 0.456, 0.406],
+            std=[0.229, 0.224, 0.225]
+        )
+
+        test_transform = transforms.Compose([
+            transforms.ToTensor(),
+            normalize
+        ])
+
+    dataset = TinyImageNetC(root, root_c,
+                            transform=test_transform,
+                            corruption=corruption,
+                            severity=severity)
 
     data_loader = DataLoader(
         dataset, batch_size=batch_size,
