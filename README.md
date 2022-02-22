@@ -184,7 +184,7 @@ python tools/train_net.py \
     log_period=100 \
     data=tiny_imagenet \
     model=resnet50_tiny model.num_classes=200 \
-    loss= \
+    loss=ls \
     optim=sgd optim.lr=0.1 optim.momentum=0.9 \
     scheduler=multi_step scheduler.milestones="[40, 60]" \
     train.max_epoch=100
