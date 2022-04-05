@@ -144,13 +144,13 @@ class SegmentEvaluator(DatasetEvaluator):
             for i in range(class_acc.shape[0]):
                 data[columns[0]].append(i)
                 data[columns[1]].append(self.classes[i + 1])
-                data[columns[3]].append(class_iou[i])
-                data[columns[2]].append(class_dice[i])
+                data[columns[2]].append(class_iou[i])
+                data[columns[3]].append(class_dice[i])
                 data[columns[4]].append(class_acc[i])
             data[columns[0]].append(None)
             data[columns[1]].append("mean")
-            data[columns[3]].append(np.mean(class_iou))
-            data[columns[2]].append(np.mean(class_dice))
+            data[columns[2]].append(np.mean(class_iou))
+            data[columns[3]].append(np.mean(class_dice))
             data[columns[4]].append(np.mean(class_acc))
             return pd.DataFrame(data, columns=columns)
 
