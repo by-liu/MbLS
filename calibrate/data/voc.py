@@ -53,23 +53,6 @@ class VOCSegmentation(Dataset):
         self.masks = [osp.join(self.mask_dir, x + ".png") for x in file_names]
         assert len(self.images) == len(self.masks)
 
-    def convert_to_segmentation_mask(self, mask, onehot=False):
-        # This function converts a mask from the Pascal VOC format to the format required by AutoAlbument.
-        #
-        # Pascal VOC uses an RGB image to encode the segmentation mask for that image. RGB values of a pixel
-        # encode the pixel's class.
-        #
-        # Each channel in this mask should encode values for a single class. Pixel in a mask channel should have
-        # a value of 1.0 if the pixel of the image belongs to this class and 0.0 otherwise.
-        height, width = mask.shape[:2]
-        segmentation_mask = np.zeros(
-            (height, width, self.num_classes), dtype=long
-        )
-        for label_index, label in enumerate(PALETTE):
-            segmentation_mask[:, :, label_index] = np.all(mask == label, axis=-1).astype(long)
-
-        return segmentation_mask
-
     def __getitem__(self, index):
         img = cv2.imread(self.images[index])
         img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)

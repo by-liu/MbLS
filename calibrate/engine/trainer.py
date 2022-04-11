@@ -74,7 +74,7 @@ class Trainer:
                 tags=["train"],
             )
             wandb.run.name = "{}-{}-{}".format(
-                wandb.run.id, self.cfg.model.name, self.cfg.loss.name
+                wandb.run.id, self.cfg.data.name, self.cfg.model.name
             )
             wandb.run.save()
             wandb.watch(self.model, log=None)

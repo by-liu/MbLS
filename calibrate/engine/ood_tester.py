@@ -35,6 +35,7 @@ class OODTester(Tester):
         self.batch_time_meter = AverageMeter()
         self.num_classes = self.cfg.model.num_classes
         self.evaluator = OODEvaluator(self.num_classes)
+        self.classify_evaluator = ClassificationEvaluator(self.num_classes)
         self.calibrate_evaluator = CalibrateEvaluator(
             self.num_classes,
             num_bins=self.cfg.calibrate.num_bins,

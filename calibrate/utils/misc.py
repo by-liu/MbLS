@@ -25,7 +25,6 @@ def set_random_seed(seed: int = None, deterministic: bool = False):
             + int(datetime.now().strftime("%S%f"))
             + int.from_bytes(os.urandom(2), "big")
         )
-        logger = logging.getLogger(__name__)
         logger.info("Using a generated random seed {}".format(seed))
     os.environ["PYTHONHASHSEED"] = str(seed)
     random.seed(seed)
