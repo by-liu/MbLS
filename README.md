@@ -2,7 +2,10 @@
 
 [Bingyuan Liu](https://by-liu.github.io/), [Ismail Ben Ayed](https://profs.etsmtl.ca/ibenayed/), Adrian Galdran, [Jose Dolz](https://josedolz.github.io/)
 
-[[`arXiv`](https://arxiv.org/abs/2111.15430)] [[`BibTeX`](#CitingMbLS)]
+```To Appear at CVPR 2022```
+
+[[`arXiv`](https://arxiv.org/abs/2111.15430)] [[`BibTeX`](#CitingMbLS)] 
+
 
 <div align="center">
   <img src="https://by-liu.github.io/publication/margin-based-label-smoothing/featured_hu1bcfdecf7483f74849c0f7f247a58b3e_176048_720x0_resize_q75_lanczos.jpg" width="100%" height="100%"/>
@@ -184,7 +187,7 @@ python tools/train_net.py \
     log_period=100 \
     data=tiny_imagenet \
     model=resnet50_tiny model.num_classes=200 \
-    loss=ce \
+    loss=ls \
     optim=sgd optim.lr=0.1 optim.momentum=0.9 \
     scheduler=multi_step scheduler.milestones="[40, 60]" \
     train.max_epoch=100
@@ -206,10 +209,10 @@ Besides the implementation of our paper, this library could support follow-up wo
 
 
 ```BibTeX
-@article{liu2021devil,
+@inproceedings{liu2022mbls,
   title={The Devil is in the Margin: Margin-based Label Smoothing for Network Calibration}, 
   author={Bingyuan Liu and Ismail Ben Ayed and Adrian Galdran and Jose Dolz},
-  journal={arXiv preprint arXiv:2111.15430}
-  year={2021}
+  booktitle = {CVPR},
+  year={2022},
 }
 ```
