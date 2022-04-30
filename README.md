@@ -12,36 +12,32 @@
 </div><br/>
 
 
-## Requirments:
-
-Here is some core dependences:
-```
-torch==1.7.1+cu110
-torchvision==0.8.2+cu110
-albumentations==1.0.0
-hydra-core==1.1.0
-```
-
-For detailed dependences, please check [requirements.txt](requirements.txt). (It maybe a little redundant. We will make it clean soon.)
-
-
 ## Install:
 
+[option] create a new virtual env
 ```
-python setup.py develop
+conda create -n mbls python=3.8.10
 ```
 
+It's recommended to install [torch and torchvision](https://pytorch.org/) tailored to your environment in advance.
+The torch versions I have tested are 1.10.0+cu111 and 1.7.1+cu110.
+
+```
+pip install -e .
+```
+
+The required libraies are included in [steup.py](setup.py).
 
 ## Data preparation
 
 For CIFAR-10, our code can automatically download the data samples. For the others (Tiny-Imagenet, CUB-200 and VOC 2012), please refer to the official cites for downloading the datasets.
 
-**Important Note** : Before you run the code, please add the absolute path of the data directory for the related data configs in [configs/data](configs/data/).
+**Important Note** : Before you run the code, please add the absolute path of the data directory for the related data configs in [configs/data](configs/data/). Or you could pass it in the running commands.
 
 ## Usage:
 
 
-### Command arguments :
+### Training arguments:
 
 <details><summary>python tools/train_net.py --help</summary>
 <p>
@@ -155,13 +151,14 @@ Use --hydra-help to view Hydra specific help
 </details>
 
 
-### Example 
+### Traing Examples 
 
 Ours : 
 ```python
 python tools/train_net.py \
     log_period=100 \
     data=tiny_imagenet \
+    data.data_root=/home/bliu/work/Data/tiny-imagenet-200 \
     model=resnet50_tiny model.num_classes=200 \
     loss=logit_margin loss.margin=10.0 loss.alpha=0.1 \
     optim=sgd optim.lr=0.1 optim.momentum=0.9 \
@@ -174,6 +171,7 @@ Cross entropy (CE) :
 python tools/train_net.py \
     log_period=100 \
     data=tiny_imagenet \
+    data.data_root=/home/bliu/work/Data/tiny-imagenet-200 \
     model=resnet50_tiny model.num_classes=200 \
     loss=ce \
     optim=sgd optim.lr=0.1 optim.momentum=0.9 \
@@ -186,12 +184,16 @@ Label smoothing (LS) :
 python tools/train_net.py \
     log_period=100 \
     data=tiny_imagenet \
+    data.data_root=/home/bliu/work/Data/tiny-imagenet-200 \
     model=resnet50_tiny model.num_classes=200 \
     loss=ls \
     optim=sgd optim.lr=0.1 optim.momentum=0.9 \
     scheduler=multi_step scheduler.milestones="[40, 60]" \
     train.max_epoch=100
 ```
+
+[Testing Examples](docs/TEST.md)
+
 
 
 ## Support for extension or follow-up works

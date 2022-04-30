@@ -9,8 +9,8 @@ defaults:
   - optim: sgd
   - scheduler: multi_step
   - wandb: my
-
   - override hydra/job_logging: custom
+  - _self_
 
 task: cv
 device: cuda:0
