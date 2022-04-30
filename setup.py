@@ -2,8 +2,8 @@ from setuptools import setup, find_packages
 
 setup(
     name="calibrate",
-    version="1.0",
-    author="",
+    version="0.2",
+    author="Bingyuan Liu",
     description="For awesome calibration research",
     packages=find_packages(),
     python_requries=">=3.8",

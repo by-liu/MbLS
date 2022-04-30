@@ -20,13 +20,13 @@ conda create -n mbls python=3.8.10
 ```
 
 It's recommended to install [torch and torchvision](https://pytorch.org/) tailored to your environment in advance.
-The torch versions I have tested are 1.10.0+cu111 and 1.7.1+cu110.
+The torch versions I have tested are **1.10.0+cu111** and 1.7.1+cu110.
 
 ```
 pip install -e .
 ```
 
-The required libraies are included in [steup.py](setup.py).
+The required libraies are already included in [steup.py](setup.py).
 
 ## Data preparation
 

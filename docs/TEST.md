@@ -14,6 +14,12 @@ python tools/test_net.py \
     test.checkpoint=[The Filename Of The Checkpoint]
 ```
 
+### Checkpoints links
+
+[CE]()
+[LS]()
+[FL]()
+[MbLS(Ours)]()
 
 ### Running Examples
 
@@ -69,8 +75,34 @@ python tools/test_net.py \
 +---------+---------+---------+---------+---------+
 ```
 
+### FL
+```python
+python tools/test_net.py \
+    data=tiny_imagenet \
+    data.data_root=/home/bliu/work/Data/tiny-imagenet-200 \
+    model=resnet50_tiny \
+    model.num_classes=200 \
+    hydra.run.dir=outputs/best_models/tiny_resnet50 \
+    test.checkpoint=resnet50_tiny-fl-best.pth
+```
 
-#### MbLS
+```
+[2022-04-30 18:37:37,130 INFO][tester.py:123 - log_eval_epoch_info] -
++---------+---------+---------+---------+
+| samples | acc     | acc_5   | macc    |
++---------+---------+---------+---------+
+| 10000   | 0.63090 | 0.85600 | 0.63090 |
++---------+---------+---------+---------+
+[2022-04-30 18:37:37,130 INFO][tester.py:124 - log_eval_epoch_info] -
++---------+---------+---------+---------+---------+
+| samples | nll     | ece     | aece    | cece    |
++---------+---------+---------+---------+---------+
+| 10000   | 1.44640 | 0.02958 | 0.03116 | 0.00139 |
++---------+---------+---------+---------+---------+
+```
+
+
+#### MbLS (Ours)
 ```python
 python tools/test_net.py \
     data=tiny_imagenet \
