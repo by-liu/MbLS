@@ -1,1 +1,243 @@
-<h1>MbLS</h1>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="The Devil is in the Margin: Margin-based Label Smoothing for Network Calibration">
+  <meta name="keywords" content="MbLS, Calibration">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Devil is in the Margin: Margin-based Label Smoothing for Network Calibration</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="https://by-liu.github.io/">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+      </a>
+    </div>
+
+  </div>
+</nav>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">The Devil is in the Margin: Margin-based Label Smoothing for Network Calibration</h1>
+          <h1 class="is-size-4 publication-title">CVPR 2022</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://by-liu.github.io/">Bingyuan Liu</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="https://profs.etsmtl.ca/ibenayed/">Ismail Ben Ayed</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="https://scholar.google.es/citations?user=VKx-rswAAAAJ&hl=es">Adrian Galdran</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://josedolz.github.io/">Jose Dolz</a><sup>1</sup>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>ÉTS Montreal, Canada</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="author-block"><sup>2</sup>Universitat Pompeu Fabra, Spain</span>
+          </div>
+
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <!-- <span class="link-block">
+                <a href="https://arxiv.org/pdf/2111.15430.pdf"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span> -->
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2111.15430"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/by-liu/MbLS"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="static/media/mbls_cvpr2022_poster.pdf"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Poster</span>
+                  </a>
+              </span>
+              <!-- Video Link. -->
+              <!-- <span class="link-block">
+                <a href="https://youtu.be/kLmwEpVbjeg"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span> -->
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- <section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+        <img src="static/media/segmentation_main.pdf"/>
+      <h2 class="subtitle has-text-centered">
+        <span class="dnerf">MbLS</span> turns selfie videos from your phone into
+        free-viewpoint
+        portraits.
+      </h2>
+    </div>
+  </div>
+</section> -->
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">Overview</h2>
+          <div>
+            <img src="static/media/segmentation_main.pdf"
+            class="interpolation-image"
+            alt="Interpolate start reference image."/>
+          </div>
+          <div class="content has-text-justified">
+            <p>
+              Calibrating deep neural networks has attracted an increased attention recently since some recent papers demonstrate that DNNs tend to be over-confident. This topic is also critical for safty-sensitive applications, like autonomous driving and medical diagnosis. 
+            </p>
+            <p>
+              Our contributions to address the mis-calibration of deep neural networks are as follows:
+              <ul>
+                  <li>Introduce a constrained-optimization perspective unifying previous calibration losses.</li>
+                  <li>Propose a simple and flexible generalization based on inequality constraints, which imposes a positive and controllable margin on logit distances.</li>
+                  <li>SOTA calibration performances over a variety of applications.</li>
+              </ul>
+            </p>
+          </div>
+        </div>
+      </div>
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            In spite of the dominant performances of deep neural networks, recent works have shown that they are poorly calibrated, resulting in over-confident predictions.
+            Miscalibration can be exacerbated by overfitting due to the minimization of the cross-entropy during training, as it promotes the predicted softmax probabilities to match the one-hot label assignments. This yields a pre-softmax activation of the correct class that is significantly larger than the remaining activations. Recent evidence from the literature suggests that loss functions that embed implicit or explicit maximization of the entropy of predictions yield state-of-the-art calibration performances.
+          </p>
+          <p>
+            We provide a unifying constrained-optimization perspective of current state-of-the-art calibration losses. Specifically, these losses could be viewed as approximations of a linear penalty (or a Lagrangian term) imposing equality constraints on logit distances. This points to an important limitation of such underlying equality constraints, whose ensuing gradients constantly push towards a non-informative solution, which might prevent from reaching the best compromise between the discriminative performance and calibration of the model during gradient-based optimization. Following our observations, we propose a simple and flexible generalization based on inequality constraints, which imposes a controllable margin on logit distances. Comprehensive experiments on a variety of image classification, semantic segmentation and NLP benchmarks demonstrate that our method sets novel state-of-the-art results on these tasks in terms of network calibration, without affecting the discriminative performance.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Paper video. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Video</h2>
+        <div class="publication-video">
+          <iframe src="https://www.youtube.com/embed/kLmwEpVbjeg"
+                  frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+    <!--/ Paper video. -->
+  </div>
+</section>
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@inproceedings{liu2022mbls,
+      title={The Devil is in the Margin: Margin-based Label Smoothing for Network Calibration}, 
+      author={Bingyuan Liu and Ismail Ben Ayed and Adrian Galdran and Jose Dolz},
+      booktitle={CVPR},
+      year={2022},
+}</code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link"
+         href="https://arxiv.org/pdf/2111.15430.pdf">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/by-liu" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+      <div class="columns is-centered">
+        <div class="column is-8">
+          <div class="content">
+            <p>This page is base on a design by  <a href="https://nerfies.github.io">Nerfies</a>.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</footer>
+
+</body>
+</html>

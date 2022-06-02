@@ -1,6 +1,6 @@
 name: ng
 
-data_root: DATA_PATH
+data_root: /home/bliu/work/Data/NewsGroup
 batch_size: 128
 
 object:

@@ -1,6 +1,6 @@
 name: cub
 
-data_root: DATA_PATH
+data_root: /home/bliu/work/Data/CUB_200_2011
 batch_size: 32
 scale_size: 256
 crop_size: 224

@@ -1,10 +1,10 @@
 # MbLS : The Devil is in the Margin: Margin-based Label Smoothing for Network Calibration
 
-[Bingyuan Liu](https://by-liu.github.io/), [Ismail Ben Ayed](https://profs.etsmtl.ca/ibenayed/), Adrian Galdran, [Jose Dolz](https://josedolz.github.io/)
+[Bingyuan Liu](https://by-liu.github.io/), [Ismail Ben Ayed](https://profs.etsmtl.ca/ibenayed/), [Adrian Galdran](https://scholar.google.es/citations?user=VKx-rswAAAAJ&hl=es), [Jose Dolz](https://josedolz.github.io/)
 
 ```To Appear at CVPR 2022```
 
-[[`arXiv`](https://arxiv.org/abs/2111.15430)] [[`BibTeX`](#CitingMbLS)] 
+[[`arXiv`](https://arxiv.org/abs/2111.15430)][[`website`](https://by-liu.github.io/MbLS/)] [[`BibTeX`](#CitingMbLS)] 
 
 
 <div align="center">
@@ -192,7 +192,8 @@ python tools/train_net.py \
     train.max_epoch=100
 ```
 
-[Testing Examples](docs/TEST.md)
+### Testing Examples
+[Testing with trained models](docs/TEST.md)
 
 
 

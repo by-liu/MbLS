@@ -1,6 +1,6 @@
 name: voc
 
-data_root: DATA_PATH
+data_root: /home/bliu/work/Code/MbLS/data/VOCdevkit/VOC2012
 batch_size: 8
 
 object:

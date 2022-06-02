@@ -1,6 +1,6 @@
 name: cifar10
 
-data_root: DATA_PATH
+data_root: /home/bliu/work/Code/MbLS/data
 batch_size: 128
 
 object:

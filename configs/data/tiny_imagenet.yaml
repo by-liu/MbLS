@@ -1,6 +1,6 @@
 name: tiny_imagenet
 
-data_root: DATA_PATH
+data_root: /home/bliu/work/Data/tiny-imagenet-20
 batch_size: 64
 
 object:
