@@ -17,15 +17,15 @@ class LogitMarginL1(nn.Module):
         The following args are related to balancing weight (alpha) scheduling.
         Note all the results presented in our paper are obtained without the scheduling strategy.
         So it's fine to ignore if you don't want to try it.
-            schedule (str, optional):
-                Different stragety to schedule the balancing weight alpha
-                or not: "" | add | multiply | step.
-                Defaults to "" (no scheduling).
-                To activate schedule, you should call function
-                `schedula_alpha` every epoch in your training code.
-            mu (float, optional): scheduling weight. Defaults to 0.
-            max_alpha (float, optional): Defaults to 100.0.
-            step_size (int, optional): The step size for updating alpha. Defaults to 100.
+
+        schedule (str, optional):
+            Different stragety to schedule the balancing weight alpha or not:
+            "" | add | multiply | step. Defaults to "" (no scheduling).
+            To activate schedule, you should call function
+            `schedula_alpha` every epoch in your training code.
+        mu (float, optional): scheduling weight. Defaults to 0.
+        max_alpha (float, optional): Defaults to 100.0.
+        step_size (int, optional): The step size for updating alpha. Defaults to 100.
     """
     def __init__(self,
                  margin: float = 10,

@@ -210,7 +210,7 @@ python tools/train_net.py \
 
 ### Plugin MbLS into your pipeline
 
-It is convenient to include the self-conained module [logit_margin_l1](calibrate/losses/logit_margin_l1.py) in your framework.
+It is straightfoward to include the self-contained module [logit_margin_l1](calibrate/losses/logit_margin_l1.py) in your framework.
 
 The core ideas are simply a few lines of code:
 
