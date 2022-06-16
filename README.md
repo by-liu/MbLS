@@ -195,7 +195,20 @@ python tools/train_net.py \
 ### Testing Examples
 [Testing with trained models](docs/TEST.md)
 
+### Plugin MbLS loss into your pipeline
 
+It is convenient to include the self-conained module [logit_margin_l1](calibrate/losses/logit_margin_l1.py) in your framework.
+
+The core ideas are simply a few lines of code:
+
+```
+loss_ce = self.cross_entropy(inputs, targets)
+# get logit distance
+diff = self.get_diff(inputs)
+# add linear penalty where logit distances are larger than the margin
+loss_margin = F.relu(diff-self.margin).mean()
+loss = loss_ce + self.alpha * loss_margin
+```
 
 ## Support for extension or follow-up works
 
