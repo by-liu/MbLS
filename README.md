@@ -11,8 +11,19 @@
   <img src="https://by-liu.github.io/publication/margin-based-label-smoothing/featured_hu1bcfdecf7483f74849c0f7f247a58b3e_176048_720x0_resize_q75_lanczos.jpg" width="100%" height="100%"/>
 </div><br/>
 
+# Table of contents
 
-## Install:
+- [Install](#install)
+- [Data preparation](#data-preparation)
+- [Usage:](#usage)
+  - [Training arguments:](#training-arguments)
+  - [Traing examples](#traing-examples)
+  - [Testing examples](#testing-examples)
+  - [Plugin MbLS into your pipeline](#plugin-mbls-into-your-pipeline)
+- [Support for extension or follow-up works](#support-for-extension-or-follow-up-works)
+
+
+## Install
 
 [option] create a new virtual env
 ```
@@ -151,7 +162,7 @@ Use --hydra-help to view Hydra specific help
 </details>
 
 
-### Traing Examples 
+### Traing examples 
 
 Ours : 
 ```python
@@ -192,10 +203,10 @@ python tools/train_net.py \
     train.max_epoch=100
 ```
 
-### Testing Examples
+### Testing examples
 [Testing with trained models](docs/TEST.md)
 
-### Plugin MbLS loss into your pipeline
+### Plugin MbLS into your pipeline
 
 It is convenient to include the self-conained module [logit_margin_l1](calibrate/losses/logit_margin_l1.py) in your framework.
 
