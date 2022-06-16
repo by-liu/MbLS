@@ -1,3 +1,4 @@
+<!-- omit in toc -->
 # MbLS : The Devil is in the Margin: Margin-based Label Smoothing for Network Calibration
 
 [Bingyuan Liu](https://by-liu.github.io/), [Ismail Ben Ayed](https://profs.etsmtl.ca/ibenayed/), [Adrian Galdran](https://scholar.google.es/citations?user=VKx-rswAAAAJ&hl=es), [Jose Dolz](https://josedolz.github.io/)
@@ -11,8 +12,20 @@
   <img src="https://by-liu.github.io/publication/margin-based-label-smoothing/featured_hu1bcfdecf7483f74849c0f7f247a58b3e_176048_720x0_resize_q75_lanczos.jpg" width="100%" height="100%"/>
 </div><br/>
 
+<!-- omit in toc -->
+# Table of contents
 
-## Install:
+- [Install](#install)
+- [Data preparation](#data-preparation)
+- [Usage](#usage)
+  - [Training arguments](#training-arguments)
+  - [Traing examples](#traing-examples)
+  - [Testing examples](#testing-examples)
+  - [Plugin MbLS into your pipeline](#plugin-mbls-into-your-pipeline)
+- [Support for extension or follow-up works](#support-for-extension-or-follow-up-works)
+
+
+## Install
 
 [option] create a new virtual env
 ```
@@ -34,10 +47,10 @@ For CIFAR-10, our code can automatically download the data samples. For the othe
 
 **Important Note** : Before you run the code, please add the absolute path of the data directory for the related data configs in [configs/data](configs/data/). Or you could pass it in the running commands.
 
-## Usage:
+## Usage
 
 
-### Training arguments:
+### Training arguments
 
 <details><summary>python tools/train_net.py --help</summary>
 <p>
@@ -151,7 +164,7 @@ Use --hydra-help to view Hydra specific help
 </details>
 
 
-### Traing Examples 
+### Traing examples 
 
 Ours : 
 ```python
@@ -192,10 +205,23 @@ python tools/train_net.py \
     train.max_epoch=100
 ```
 
-### Testing Examples
+### Testing examples
 [Testing with trained models](docs/TEST.md)
 
+### Plugin MbLS into your pipeline
 
+It is straightfoward to include the self-contained module [logit_margin_l1](calibrate/losses/logit_margin_l1.py) in your framework.
+
+The core ideas are simply a few lines of code:
+
+```
+loss_ce = self.cross_entropy(inputs, targets)
+# get logit distance
+diff = self.get_diff(inputs)
+# add linear penalty where logit distances are larger than the margin
+loss_margin = F.relu(diff-self.margin).mean()
+loss = loss_ce + self.alpha * loss_margin
+```
 
 ## Support for extension or follow-up works
 
@@ -208,6 +234,7 @@ Besides the implementation of our paper, this library could support follow-up wo
 **More instructions will come soon. Please stay tuned! Thank you.**
 
 
+<!-- omit in toc -->
 ## <a name="CitingMbLS"></a>Citing MbLS
 
 
