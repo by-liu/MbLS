@@ -1,3 +1,4 @@
+<!-- omit in toc -->
 # MbLS : The Devil is in the Margin: Margin-based Label Smoothing for Network Calibration
 
 [Bingyuan Liu](https://by-liu.github.io/), [Ismail Ben Ayed](https://profs.etsmtl.ca/ibenayed/), [Adrian Galdran](https://scholar.google.es/citations?user=VKx-rswAAAAJ&hl=es), [Jose Dolz](https://josedolz.github.io/)
@@ -11,12 +12,13 @@
   <img src="https://by-liu.github.io/publication/margin-based-label-smoothing/featured_hu1bcfdecf7483f74849c0f7f247a58b3e_176048_720x0_resize_q75_lanczos.jpg" width="100%" height="100%"/>
 </div><br/>
 
+<!-- omit in toc -->
 # Table of contents
 
 - [Install](#install)
 - [Data preparation](#data-preparation)
-- [Usage:](#usage)
-  - [Training arguments:](#training-arguments)
+- [Usage](#usage)
+  - [Training arguments](#training-arguments)
   - [Traing examples](#traing-examples)
   - [Testing examples](#testing-examples)
   - [Plugin MbLS into your pipeline](#plugin-mbls-into-your-pipeline)
@@ -45,10 +47,10 @@ For CIFAR-10, our code can automatically download the data samples. For the othe
 
 **Important Note** : Before you run the code, please add the absolute path of the data directory for the related data configs in [configs/data](configs/data/). Or you could pass it in the running commands.
 
-## Usage:
+## Usage
 
 
-### Training arguments:
+### Training arguments
 
 <details><summary>python tools/train_net.py --help</summary>
 <p>
@@ -232,6 +234,7 @@ Besides the implementation of our paper, this library could support follow-up wo
 **More instructions will come soon. Please stay tuned! Thank you.**
 
 
+<!-- omit in toc -->
 ## <a name="CitingMbLS"></a>Citing MbLS
 
 
