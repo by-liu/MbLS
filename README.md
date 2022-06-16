@@ -212,7 +212,7 @@ python tools/train_net.py \
 
 It is straightfoward to include the self-contained module [logit_margin_l1](calibrate/losses/logit_margin_l1.py) in your framework.
 
-The core ideas are simply a few lines of code:
+The core idea is simply a few lines of code:
 
 ```
 loss_ce = self.cross_entropy(inputs, targets)
